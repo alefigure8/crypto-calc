@@ -6,7 +6,12 @@
   --alert-color: #D62828;
 }
 
+@font-face {
+  font-family: 'Founders';
+  src: url('./fonts/FoundersGrotesk-Bold.otf');
+}
+
 body{
-  background-color: var(--main-bg-color) ;
+  background-color: #000; ;
   font-family: 'Noto Sans', sans-serif;
 }
