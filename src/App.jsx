@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
-import imgCrypto from './img/imagen-criptos.png'
 import Form from './components/Form'
 import Resultado from './components/Resultado'
 import SpinnerComp from './components/SpinnerComp'
+import News from './components/News'
 
 const Contenedor = styled.div`
-max-width: 900px;
+padding: 3rem;
 margin: 0 auto;
 width: 90%;
-@media (min-width: 992px) {
+display: flex;
+flex-direction: column-reverse;
+@media (min-width: 1080px) {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 2rem;
+  gap: 2rem;
 }
 `
 
@@ -23,7 +25,7 @@ margin: 30px auto 0 auto;
 display: block;
 
 @media screen and (min-width: 960px) { 
-  margin-top: 100px;
+  margin-top: 80px;
 }
 `
 
@@ -51,9 +53,10 @@ function App() {
 
   const [result, setResult] = useState({})
   const [spinner, setSpinner] = useState(false)
+  const [spinnerNews, setSpinnerNews] = useState(false)
   const [currencies, setCurrencies] = useState({})
+  const [news, setNews] = useState([])
 
- 
   useEffect(()=>{
     const api = async () => {
       const {stateCrypto, stateCurrency} = currencies
@@ -69,14 +72,27 @@ function App() {
       }
     }
     api()
+
+    const news = async () => {
+      setSpinnerNews(true)
+      const url = `https://gnews.io/api/v4/search?q=${currencies.stateCrypto || 'cryptocurrency'}&lang=en&max=6&token=${import.meta.env.VITE_TOKEN}`
+      const response = await fetch(url)
+      const result = await response.json()
+      setNews(result.articles)
+      setSpinnerNews(false)
+    }
+
+    news()
+
   }, [currencies])
 
   return (
     <Contenedor>
-      <Image 
-      src={imgCrypto}
-      alt='image crypto'
-      />
+      <div>
+      {spinnerNews ?  <SpinnerComp />
+      : <News news={news} />
+      }
+      </div>
       <div>
         <Heading>Cryptocurrency Calculator</Heading>
         <Form 
