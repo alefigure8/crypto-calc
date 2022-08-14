@@ -12,6 +12,8 @@
 }
 
 body{
-  background-color: #000; ;
   font-family: 'Noto Sans', sans-serif;
+  background-color: var(--main-bg-color);
+  background: linear-gradient(15deg, #0d2936 50%, #0b445f 50.1%);
+  height: 100vh;
 }

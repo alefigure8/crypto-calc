@@ -20,6 +20,7 @@ margin-top: 20px;
 height: 4rem;
 &:hover{
     cursor: pointer;
+    background-color: #2c6cba;
 }
 `
 

@@ -47,7 +47,7 @@ const Up = styled.p`
 const Image = styled.img`
     width: 60%;
     @media screen and (min-width: 960px) { 
-        width: 90%;
+        width: 50%;
     }
 `
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from '@emotion/styled'
 
 const Card = styled.div`
@@ -15,6 +15,7 @@ transition: all 0.3s ease-in-out;
   cursor: pointer;
   transform: translate( 0px, 5px);
 }
+
 @media (min-width: 992px) {
   margin-bottom: 0rem;
   display: flex;
@@ -30,6 +31,7 @@ margin: 0 auto;
 padding: 1rem;
 gap: 1rem;
 `
+
 const Title = styled.h3`
 margin-top: 1rem;
 font-size: 17px;
@@ -68,17 +70,33 @@ max-height: 200px;
 object-fit: cover;
 object-position: center center;
 @media (min-width: 992px) {
-  max-width: 120px;
+  max-width: 35%;
+  min-height: 100%;
+}
+`
+
+const ImageLoad = styled.img`
+background-color: #ddd;
+width: 100%;
+min-height: 200px;
+max-height: 200px;
+object-fit: cover;
+object-position: center center;
+@media (min-width: 992px) {
+  min-width: 130px;
   min-height: 100%;
 }
 `
 
 const Cards = ({item}) => {
+  const [image, setImage] = React.useState(true)
+
   return (
       <Card key={item.id}>
-        <Image src={item.image} alt="{item.title}" />
+        {image && <ImageLoad/>}
+        <Image src={item.image} alt="{item.title}" onLoad={()=> setImage(false)}/>
         <CardContainer>
-          <Title>{item.title}</Title>
+          <Title>{item.title.split(' ').splice(0, 5).join(' ')}</Title>
           <Parraph>{item.description.substr(0, 100)}...</Parraph>
           <Btn href={item.url} target="_blank">Read More</Btn>
         </CardContainer>
