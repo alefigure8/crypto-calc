@@ -61,7 +61,6 @@ function Form({setCurrencies}) {
             }, 3000);
             return
         }
-
         setCurrencies({stateCrypto, stateCurrency})
    }
 
